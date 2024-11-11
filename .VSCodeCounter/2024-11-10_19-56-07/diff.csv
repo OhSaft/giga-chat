@@ -1,0 +1,17 @@
+"filename", "language", "JSON with Comments", "TypeScript", "JSON", "JavaScript", "Markdown", "XML", "comment", "blank", "total"
+"c:\Users\murtin\Desktop\giga-chat\.eslintrc.json", "JSON", 0, 0, -3, 0, 0, 0, 0, -1, -4
+"c:\Users\murtin\Desktop\giga-chat\README.md", "Markdown", 0, 0, 0, 0, -23, 0, 0, -14, -37
+"c:\Users\murtin\Desktop\giga-chat\next.config.ts", "TypeScript", 0, -7, 0, 0, 0, 0, 0, -3, -10
+"c:\Users\murtin\Desktop\giga-chat\package-lock.json", "JSON", 0, 0, -6311, 0, 0, 0, 0, -1, -6312
+"c:\Users\murtin\Desktop\giga-chat\package.json", "JSON", 0, 0, -39, 0, 0, 0, 0, -1, -40
+"c:\Users\murtin\Desktop\giga-chat\postcss.config.js", "JavaScript", 0, 0, 0, -6, 0, 0, 0, -1, -7
+"c:\Users\murtin\Desktop\giga-chat\postcss.config.mjs", "JavaScript", 0, 0, 0, -6, 0, 0, -1, -2, -9
+"c:\Users\murtin\Desktop\giga-chat\public\file.svg", "XML", 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\murtin\Desktop\giga-chat\public\globe.svg", "XML", 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\murtin\Desktop\giga-chat\public\next.svg", "XML", 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\murtin\Desktop\giga-chat\public\vercel.svg", "XML", 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\murtin\Desktop\giga-chat\public\window.svg", "XML", 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\murtin\Desktop\giga-chat\tailwind.config.js", "JavaScript", 0, 0, 0, -12, 0, 0, -2, -1, -15
+"c:\Users\murtin\Desktop\giga-chat\tailwind.config.ts", "TypeScript", 0, -17, 0, 0, 0, 0, 0, -2, -19
+"c:\Users\murtin\Desktop\giga-chat\tsconfig.json", "JSON with Comments", -27, 0, 0, 0, 0, 0, 0, -1, -28
+"Total", "-", -27, -24, -6353, -24, -23, -5, -3, -27, -6486

@@ -1,0 +1,47 @@
+Date : 2024-11-10 19:56:07
+Directory : c:\Users\murtin\Desktop\giga-chat\src
+Total : 15 files,  -6456 codes, -3 comments, -27 blanks, all -6486 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| XML                |          5 |         -5 |          0 |          0 |         -5 |
+| Markdown           |          1 |        -23 |          0 |        -14 |        -37 |
+| TypeScript         |          2 |        -24 |          0 |         -5 |        -29 |
+| JavaScript         |          3 |        -24 |         -3 |         -4 |        -31 |
+| JSON with Comments |          1 |        -27 |          0 |         -1 |        -28 |
+| JSON               |          3 |     -6,353 |          0 |         -3 |     -6,356 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                 | files      | code       | comment    | blank      | total      |
++------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                    |         15 |     -6,456 |         -3 |        -27 |     -6,486 |
+| ..                                                   |         15 |     -6,456 |         -3 |        -27 |     -6,486 |
+| .. (Files)                                           |         10 |     -6,451 |         -3 |        -27 |     -6,481 |
+| ..\public                                            |          5 |         -5 |          0 |          0 |         -5 |
++------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                             | language           | code       | comment    | blank      | total      |
++------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\murtin\Desktop\giga-chat\.eslintrc.json     | JSON               |         -3 |          0 |         -1 |         -4 |
+| c:\Users\murtin\Desktop\giga-chat\README.md          | Markdown           |        -23 |          0 |        -14 |        -37 |
+| c:\Users\murtin\Desktop\giga-chat\next.config.ts     | TypeScript         |         -7 |          0 |         -3 |        -10 |
+| c:\Users\murtin\Desktop\giga-chat\package-lock.json  | JSON               |     -6,311 |          0 |         -1 |     -6,312 |
+| c:\Users\murtin\Desktop\giga-chat\package.json       | JSON               |        -39 |          0 |         -1 |        -40 |
+| c:\Users\murtin\Desktop\giga-chat\postcss.config.js  | JavaScript         |         -6 |          0 |         -1 |         -7 |
+| c:\Users\murtin\Desktop\giga-chat\postcss.config.mjs | JavaScript         |         -6 |         -1 |         -2 |         -9 |
+| c:\Users\murtin\Desktop\giga-chat\public\file.svg    | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\murtin\Desktop\giga-chat\public\globe.svg   | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\murtin\Desktop\giga-chat\public\next.svg    | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\murtin\Desktop\giga-chat\public\vercel.svg  | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\murtin\Desktop\giga-chat\public\window.svg  | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\murtin\Desktop\giga-chat\tailwind.config.js | JavaScript         |        -12 |         -2 |         -1 |        -15 |
+| c:\Users\murtin\Desktop\giga-chat\tailwind.config.ts | TypeScript         |        -17 |          0 |         -2 |        -19 |
+| c:\Users\murtin\Desktop\giga-chat\tsconfig.json      | JSON with Comments |        -27 |          0 |         -1 |        -28 |
+| Total                                                |                    |     -6,456 |         -3 |        -27 |     -6,486 |
++------------------------------------------------------+--------------------+------------+------------+------------+------------+

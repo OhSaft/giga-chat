@@ -1,0 +1,30 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "CSS", "comment", "blank", "total"
+"c:\Users\murtin\Desktop\giga-chat\src\app\(auth)\login\page.tsx", "TypeScript JSX", 0, 63, 0, 0, 7, 70
+"c:\Users\murtin\Desktop\giga-chat\src\app\(dashboard)\dashboard\add\page.tsx", "TypeScript JSX", 0, 10, 0, 0, 2, 12
+"c:\Users\murtin\Desktop\giga-chat\src\app\(dashboard)\dashboard\layout.tsx", "TypeScript JSX", 0, 108, 0, 0, 12, 120
+"c:\Users\murtin\Desktop\giga-chat\src\app\(dashboard)\dashboard\page.tsx", "TypeScript JSX", 0, 11, 0, 0, 6, 17
+"c:\Users\murtin\Desktop\giga-chat\src\app\(dashboard)\dashboard\requests\page.tsx", "TypeScript JSX", 0, 35, 0, 0, 5, 40
+"c:\Users\murtin\Desktop\giga-chat\src\app\api\friends\accept\route.ts", "TypeScript", 52, 0, 0, 5, 10, 67
+"c:\Users\murtin\Desktop\giga-chat\src\app\api\friends\add\route.ts", "TypeScript", 51, 0, 0, 3, 13, 67
+"c:\Users\murtin\Desktop\giga-chat\src\app\api\friends\deny\route.ts", "TypeScript", 23, 0, 0, 2, 6, 31
+"c:\Users\murtin\Desktop\giga-chat\src\app\globals.css", "CSS", 0, 0, 25, 18, 6, 49
+"c:\Users\murtin\Desktop\giga-chat\src\app\layout.tsx", "TypeScript JSX", 0, 33, 0, 0, 4, 37
+"c:\Users\murtin\Desktop\giga-chat\src\app\page.tsx", "TypeScript JSX", 0, 5, 0, 0, 2, 7
+"c:\Users\murtin\Desktop\giga-chat\src\components\AddFriendButton.tsx", "TypeScript JSX", 0, 61, 0, 0, 12, 73
+"c:\Users\murtin\Desktop\giga-chat\src\components\FriendRequests.tsx", "TypeScript JSX", 0, 61, 0, 0, 11, 72
+"c:\Users\murtin\Desktop\giga-chat\src\components\FriendRequestsSidebarOptions.tsx", "TypeScript JSX", 0, 31, 0, 0, 5, 36
+"c:\Users\murtin\Desktop\giga-chat\src\components\Icons.tsx", "TypeScript JSX", 0, 12, 0, 0, 2, 14
+"c:\Users\murtin\Desktop\giga-chat\src\components\Providers.tsx", "TypeScript JSX", 0, 15, 0, 0, 4, 19
+"c:\Users\murtin\Desktop\giga-chat\src\components\SignOutButton.tsx", "TypeScript JSX", 0, 33, 0, 0, 5, 38
+"c:\Users\murtin\Desktop\giga-chat\src\components\ui\Button.tsx", "TypeScript JSX", 0, 34, 0, 0, 5, 39
+"c:\Users\murtin\Desktop\giga-chat\src\helpers\redis.ts", "TypeScript", 20, 0, 0, 0, 6, 26
+"c:\Users\murtin\Desktop\giga-chat\src\lib\auth.ts", "TypeScript", 61, 0, 0, 4, 9, 74
+"c:\Users\murtin\Desktop\giga-chat\src\lib\db.ts", "TypeScript", 5, 0, 0, 0, 1, 6
+"c:\Users\murtin\Desktop\giga-chat\src\lib\utils.ts", "TypeScript", 5, 0, 0, 0, 1, 6
+"c:\Users\murtin\Desktop\giga-chat\src\lib\validations\add-friend.ts", "TypeScript", 4, 0, 0, 0, 1, 5
+"c:\Users\murtin\Desktop\giga-chat\src\middleware.ts", "TypeScript", 34, 0, 0, 5, 9, 48
+"c:\Users\murtin\Desktop\giga-chat\src\pages\api\auth\[...nextauth].ts", "TypeScript", 3, 0, 0, 0, 1, 4
+"c:\Users\murtin\Desktop\giga-chat\src\types\db.d.ts", "TypeScript", 6, 0, 0, 0, 0, 6
+"c:\Users\murtin\Desktop\giga-chat\src\types\next-auth.d.ts", "TypeScript", 15, 0, 0, 0, 2, 17
+"c:\Users\murtin\Desktop\giga-chat\src\types\pusher.d.ts", "TypeScript", 4, 0, 0, 0, 0, 4
+"Total", "-", 283, 512, 25, 37, 147, 1004
