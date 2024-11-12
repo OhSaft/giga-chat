@@ -1,5 +1,7 @@
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
+import { toPusherKey } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
@@ -18,6 +20,14 @@ export async function POST(req: Request) {
 
     // remove friend request
     await db.srem(`user:${session.user.id}:incoming_friend_requests`, idToDeny);
+
+    // Trigger Pusher event for real-time update
+    await pusherServer.trigger(
+      toPusherKey(`user:${session.user.id}:incoming_friend_requests`),
+      "friend_request_denied",
+      { deniedId: idToDeny }
+    );
+
     return new Response("Friend request removed", { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
