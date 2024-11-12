@@ -2,8 +2,12 @@ import FriendRequestsSidebarOptions from "@/components/FriendRequestsSidebarOpti
 import { Icon, Icons } from "@/components/Icons";
 import MobileChatLayout from "@/components/MobileChatLayout";
 import SidebarChatList from "@/components/SidebarChatList";
+import SidebarGroupList from "@/components/SidebarGroupList";
 import SignOutButton from "@/components/SignOutButton";
-import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
+import {
+  getFriendsByUserId,
+  getGroupsByUserId,
+} from "@/helpers/get-by-user-id";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { SidebarOption } from "@/types/typings";
@@ -24,6 +28,12 @@ const sidebarOptions: SidebarOption[] = [
     href: "/dashboard/add",
     Icon: "UserPlus",
   },
+  {
+    id: 2,
+    name: "Create group",
+    href: "/dashboard/createGroup",
+    Icon: "GroupIcon",
+  },
 ];
 
 const layout = async ({ children }: LayoutProps) => {
@@ -33,6 +43,7 @@ const layout = async ({ children }: LayoutProps) => {
   }
 
   const friends = (await getFriendsByUserId(session.user.id)) as User[];
+  const groups = (await getGroupsByUserId(session.user.id)) as Group[];
 
   const unseenRequestsCount = (
     (await fetchRedis(
@@ -66,6 +77,20 @@ const layout = async ({ children }: LayoutProps) => {
             </svg>
           </div>
         </Link>
+
+        {groups.length > 0 ? (
+          <div className="text-xs font-semibold leading-6 text-gray-400">
+            Your groups
+          </div>
+        ) : null}
+
+        <nav className="flex flex-col">
+          <ul role="list" className="flex flex-1 flex-col gap-y-7">
+            <li>
+              <SidebarGroupList sessionId={session.user.id} groups={groups} />
+            </li>
+          </ul>
+        </nav>
 
         {friends.length > 0 ? (
           <div className="text-xs font-semibold leading-6 text-gray-400">
