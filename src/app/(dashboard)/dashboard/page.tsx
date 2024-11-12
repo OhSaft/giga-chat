@@ -1,4 +1,4 @@
-import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
+import { getFriendsByUserId } from "@/helpers/get-by-user-id";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { chatHrefConstructor } from "@/lib/utils";
