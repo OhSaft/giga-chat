@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import React, { FC, useState } from 'react';
-import Link from 'next/link';
-import { UserPlus, Users, UserMinus } from 'lucide-react';
+import React, { FC, useState } from "react";
+import Link from "next/link";
+import { UserPlus, Users, UserMinus } from "lucide-react";
+import Image from "next/image";
 
 interface GroupHeaderProps {
   group: Group;
@@ -23,12 +24,10 @@ const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId }) => {
                 {group.name}
               </span>
             </div>
-            <span className="text-sm text-gray-600">
-              {group.description}
-            </span>
+            <span className="text-sm text-gray-600">{group.description}</span>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <button
             className="p-2 hover:bg-gray-100 rounded-md text-gray-600 flex items-center"
@@ -45,7 +44,7 @@ const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId }) => {
           </Link>
         </div>
       </div>
-      
+
       {showMembers && (
         <div className="border-b-2 border-gray-200 p-4">
           <h3 className="font-semibold mb-3">Group Members</h3>
@@ -53,14 +52,16 @@ const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId }) => {
             {groupUsers.map((user) => (
               <div key={user.id} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <img
-                    src={user.image || '/placeholder-avatar.jpg'}
+                  <Image
+                    src={user.image || "/placeholder-avatar.jpg"}
                     alt={`${user.name}'s avatar`}
                     className="w-8 h-8 rounded-full"
                   />
                   <span>{user.name}</span>
                 </div>
-                <Link href={`/group/${groupId}/removeMembers?userId=${user.id}`}>
+                <Link
+                  href={`/group/${groupId}/removeMembers?userId=${user.id}`}
+                >
                   <button className="p-2 hover:bg-gray-100 rounded-md text-red-600">
                     <UserMinus className="h-4 w-4" />
                   </button>

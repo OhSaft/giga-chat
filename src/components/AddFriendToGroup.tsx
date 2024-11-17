@@ -5,8 +5,7 @@ import { fetchRedis } from "@/helpers/redis";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { UserPlus } from "lucide-react";
-import axios, { AxiosError } from "axios";
-import { z } from "zod";
+import Image from "next/image";
 
 interface User {
   id: string;
@@ -62,7 +61,7 @@ const AddFriendToGroup: FC<AddFriendToGroupProps> = async ({ groupId }) => {
               className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm"
             >
               <div className="flex items-center gap-3">
-                <img
+                <Image
                   src={friend.image || "/placeholder-avatar.jpg"}
                   alt={`${friend.name}'s profile picture`}
                   className="w-12 h-12 rounded-full"
