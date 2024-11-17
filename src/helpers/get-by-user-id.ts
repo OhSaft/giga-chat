@@ -18,13 +18,10 @@ export const getFriendsByUserId = async (userId: string) => {
 };
 
 export const getGroupsByUserId = async (userId: string) => {
-  console.log("userId", userId);
   const groupIds = (await fetchRedis(
     "smembers",
     `user:${userId}:groups`
   )) as string[];
-
-  console.log("groupIds", groupIds);
 
   const groups = (await Promise.all(
     groupIds.map(async (groupId) => {

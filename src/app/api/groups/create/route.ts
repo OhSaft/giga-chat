@@ -1,3 +1,4 @@
+import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
@@ -32,9 +33,22 @@ export async function POST(req: Request) {
 
     const userId = session.user.id;
 
-    const userGroups = await db.smembers(`user:${userId}:groups`);
-    if (userGroups.length >= 3) {
-      return new Response("You have reached the maximum limit of 3 groups", {
+    const userGroups = (await db.smembers(`user:${userId}:groups`)) as string[];
+    // only own created groups should be max of 3
+    let count = 0;
+
+    for (const userGroup of userGroups) {
+      const groupRaw = (await fetchRedis(
+        "get",
+        `group:${userGroup}`
+      )) as string;
+      const group = JSON.parse(groupRaw) as Group;
+      if (group.creatorId === userId) {
+        count++;
+      }
+    }
+    if (count >= 3) {
+      return new Response("You cannot create more than 3 groups for now.", {
         status: 403,
       });
     }
@@ -45,10 +59,11 @@ export async function POST(req: Request) {
     // Create group as JSON string
     const groupData = JSON.stringify({
       id: groupId,
-      name,
+      name: name,
       description: description || "",
       createdAt: timestamp,
       creatorId: session.user.id,
+      members: [session.user.id],
     });
 
     // Store group as JSON string

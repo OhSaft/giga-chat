@@ -62,7 +62,7 @@ const SidebarGroupList: FC<SidebarGroupListProps> = ({ groups, sessionId }) => {
           return group.members.includes(unseenMessage.senderId);
         }).length;
         return (
-          <li key={group.id}>
+          <li key={group.id + "aaa"}>
             <a
               href={`/dashboard/group/${group.id}`}
               className="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"

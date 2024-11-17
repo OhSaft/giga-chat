@@ -28,6 +28,6 @@ interface Group {
   name: string; // group name
   description?: string; // optional
   createdAt: number; // timestamp
-  createdBy: string; // user id
+  creatorId: string; // user id
   members: string[]; // user ids
 }

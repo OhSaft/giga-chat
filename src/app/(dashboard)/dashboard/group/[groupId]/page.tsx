@@ -1,10 +1,10 @@
-import ChatInput from "@/components/ChatInput";
-import Messages from "@/components/Messages";
+import GroupHeader from "@/components/GroupHeader";
+import GroupInput from "@/components/GroupInput";
+import GroupMessages from "@/components/GroupMessages";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { messageArraySchema } from "@/lib/message";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -15,11 +15,11 @@ interface PageProps {
 
 type Params = Promise<{ groupId: string }>;
 
-async function getChatMessages(chatId: string) {
+async function getGroupMessages(groupId: string) {
   try {
     const results: string[] = await fetchRedis(
       "zrange",
-      `chat:${chatId}:messages`,
+      `group:${groupId}:messages`,
       0,
       -1
     );
@@ -47,53 +47,46 @@ const Page = async ({ params }: { params: Params }) => {
 
   const { user } = session;
 
-  const [userId1, userId2] = groupId.split("--");
+  const userId = user.id;
 
-  if (userId1 !== user.id && userId2 !== user.id) {
+  const groupUsersRaw = (await fetchRedis(
+    "smembers",
+    `group:${groupId}:members`
+  )) as string[];
+
+  // parse them into User objects
+  const groupUsers = await Promise.all(
+    groupUsersRaw.map(async (userId) => {
+      const userRaw = (await fetchRedis("get", `user:${userId}`)) as string;
+      return JSON.parse(userRaw) as User;
+    })
+  );
+
+  // Check if user is part of the group
+  if (!groupUsers.find((user) => user.id === userId)) {
     notFound();
   }
 
-  const chatPartnerId = user.id === userId1 ? userId2 : userId1;
-  const chatPartnerRaw = (await fetchRedis(
-    "get",
-    `user:${chatPartnerId}`
-  )) as string;
-  const chatPartner = JSON.parse(chatPartnerRaw) as User;
-  const initialMessages = await getChatMessages(groupId);
+  const groupRaw = (await fetchRedis("get", `group:${groupId}`)) as string;
+  const group = JSON.parse(groupRaw) as Group;
+
+  const initialMessages = await getGroupMessages(groupId);
 
   return (
     <div className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]">
-      <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
-        <div className="relative flex items-center space-x-4">
-          <div className="relative ">
-            <div className="relative w-8 sm:w-12 h-7 sm:h-12">
-              <Image
-                fill
-                referrerPolicy="no-referrer"
-                src={chatPartner.image}
-                alt={`${chatPartner.name} profile picture`}
-                className="rounded-full"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col leading-tight">
-            <div className="text-xl flex items-center">
-              <span className="text-gray-700 mr-3 font-semibold">
-                {chatPartner.name}
-              </span>
-            </div>
-            <span className="text-sm text-gray-600">{chatPartner.email}</span>
-          </div>
-        </div>
-      </div>
-      <Messages
+      <GroupHeader 
+        group={group}
+        groupUsers={groupUsers}
+        groupId={groupId}
+      />
+      <GroupMessages
         sessionId={session.user.id}
         initialMessages={initialMessages}
-        chatPartner={chatPartner}
+        groupUsers={groupUsers}
         sessionImage={session.user.image}
-        chatId={groupId}
+        groupId={groupId}
       />
-      <ChatInput chatPartner={chatPartner} chatId={groupId} />
+      <GroupInput groupId={groupId} />
     </div>
   );
 };
