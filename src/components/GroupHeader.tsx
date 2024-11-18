@@ -7,11 +7,12 @@ import Image from "next/image";
 
 interface GroupHeaderProps {
   group: Group;
-  groupUsers: User[]; // Array of group members
+  groupUsers: User[]; 
   groupId: string;
+  userId: string;
 }
 
-const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId }) => {
+const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId, userId }) => {
   const [showMembers, setShowMembers] = useState(false);
 
   return (
@@ -55,17 +56,21 @@ const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId }) => {
                   <Image
                     src={user.image || "/placeholder-avatar.jpg"}
                     alt={`${user.name}'s avatar`}
-                    className="w-8 h-8 rounded-full"
+                    width={32}
+                    height={32}
+                    className="rounded-full"
                   />
                   <span>{user.name}</span>
                 </div>
-                <Link
-                  href={`/group/${groupId}/removeMembers?userId=${user.id}`}
-                >
-                  <button className="p-2 hover:bg-gray-100 rounded-md text-red-600">
-                    <UserMinus className="h-4 w-4" />
-                  </button>
-                </Link>
+                {userId === group.creatorId && user.id !== group.creatorId && (
+                  <Link
+                    href={`/group/${groupId}/removeMembers?userId=${user.id}`}
+                  >
+                    <button className="p-2 hover:bg-gray-100 rounded-md text-red-600">
+                      <UserMinus className="h-4 w-4" />
+                    </button>
+                  </Link>
+                )}
               </div>
             ))}
           </div>

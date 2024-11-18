@@ -1,9 +1,7 @@
-"use server";
+"use client";
 
-import { FC } from "react";
-import { fetchRedis } from "@/helpers/redis";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { FC, useState } from "react";
+import { useRouter } from "next/navigation";
 import { UserPlus } from "lucide-react";
 import Image from "next/image";
 
@@ -16,36 +14,37 @@ interface User {
 
 interface AddFriendToGroupProps {
   groupId: string;
+  availableFriends: User[];
 }
 
-const AddFriendToGroup: FC<AddFriendToGroupProps> = async ({ groupId }) => {
-  const session = await getServerSession(authOptions);
-  if (!session) return null;
+const AddFriendToGroup: FC<AddFriendToGroupProps> = ({ groupId, availableFriends }) => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<string | null>(null);
 
-  // Get user's friends
-  const friendIds = (await fetchRedis(
-    "smembers",
-    `user:${session.user.id}:friends`
-  )) as string[];
+  const addMemberToGroup = async (friendId: string) => {
+    setIsLoading(friendId);
+    try {
+      const response = await fetch(`/api/groups/add`, {
+        method: 'POST',
+        body: JSON.stringify({ friendId, groupId }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-  // Get current group members to filter out
-  const groupMembersRaw = (await fetchRedis(
-    "smembers",
-    `group:${groupId}:members`
-  )) as string[];
-
-  // Get full friend objects
-  const friends = await Promise.all(
-    friendIds.map(async (friendId) => {
-      const friend = (await fetchRedis("get", `user:${friendId}`)) as string;
-      return JSON.parse(friend) as User;
-    })
-  );
-
-  // Filter out friends who are already in the group
-  const availableFriends = friends.filter(
-    (friend) => !groupMembersRaw.includes(friend.id)
-  );
+      if (response.ok) {
+        router.refresh();
+      } else {
+        // Handle error
+        console.error('Failed to add member');
+        console.error(await response.text());
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(null);
+    }
+  };
 
   return (
     <div className="px-4">
@@ -64,6 +63,8 @@ const AddFriendToGroup: FC<AddFriendToGroupProps> = async ({ groupId }) => {
                 <Image
                   src={friend.image || "/placeholder-avatar.jpg"}
                   alt={`${friend.name}'s profile picture`}
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full"
                 />
                 <div>
@@ -72,16 +73,17 @@ const AddFriendToGroup: FC<AddFriendToGroupProps> = async ({ groupId }) => {
                 </div>
               </div>
 
-              <form
-                className="flex items-center gap-2"
+              <button
+                onClick={() => addMemberToGroup(friend.id)}
+                disabled={isLoading === friend.id}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors disabled:opacity-50"
               >
-                <button
-                  type="submit"
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                >
+                {isLoading === friend.id ? (
+                  <span className="animate-spin">⏳</span>
+                ) : (
                   <UserPlus className="w-5 h-5 text-gray-600" />
-                </button>
-              </form>
+                )}
+              </button>
             </div>
           ))}
         </div>

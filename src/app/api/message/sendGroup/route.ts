@@ -41,7 +41,11 @@ export async function POST(req: Request) {
     await pusherServer.trigger(
       toPusherKey(`group:${groupId}`),
       "incoming_message",
-      message
+      {
+        ...message,
+        senderImg: sender.image,
+        senderName: sender.name,
+      }
     );
 /*
     await pusherServer.trigger(

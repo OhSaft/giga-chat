@@ -3,7 +3,7 @@
 import { Message } from "@/lib/message";
 import { cn, toPusherKey } from "@/lib/utils";
 import { FC, useEffect, useRef, useState } from "react";
-import { format } from "date-fns";
+import { format, isSameDay } from "date-fns";
 import Image from "next/image";
 import { pusherClient } from "@/lib/pusher";
 
@@ -44,6 +44,10 @@ const Messages: FC<MessagesProps> = ({
   const formatTimeStamp = (timestamp: number) => {
     return format(timestamp, "HH:mm");
   };
+
+  const formatDate = (timestamp: number) => {
+    return format(timestamp, "MMMM dd, yyyy");
+  };
   return (
     <div
       id="messages"
@@ -56,11 +60,22 @@ const Messages: FC<MessagesProps> = ({
         const hasNextMessageFromSameUser =
           messages[index - 1]?.senderId === messages[index].senderId;
 
+        const isNewDay =
+          index === messages.length - 1 ||
+          !isSameDay(messages[index + 1]?.timestamp, messages[index].timestamp);
+
         return (
           <div
             className="chat-message"
             key={`${message.id}-${message.timestamp}`}
           >
+            {isNewDay && (
+              <div className="text-center text-gray-500 my-2">
+                <span className="px-4 py-1 bg-gray-200 rounded-lg text-sm">
+                  {formatDate(message.timestamp)}
+                </span>
+              </div>
+            )}
             <div
               className={cn("flex items-end", { "justify-end": isCurrentUser })}
             >

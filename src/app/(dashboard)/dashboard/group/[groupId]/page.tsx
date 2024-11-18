@@ -78,6 +78,7 @@ const Page = async ({ params }: { params: Params }) => {
         group={group}
         groupUsers={groupUsers}
         groupId={groupId}
+        userId={userId}
       />
       <GroupMessages
         sessionId={session.user.id}
