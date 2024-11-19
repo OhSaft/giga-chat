@@ -36,6 +36,18 @@ async function getChatMessages(chatId: string) {
   }
 }
 
+const handleRemoveFriend = async (friendId: string) => {
+  try {
+    await fetch(`/api/friends/${friendId}/remove`, { method: "DELETE" });
+    alert("Friend removed successfully.");
+    // Optionally, you can redirect the user or refresh the page
+    window.location.href = "/friends";
+  } catch (error) {
+    console.error("Failed to remove friend:", error);
+    alert("Failed to remove friend.");
+  }
+};
+
 const Page = async ({ params }: { params: Params }) => {
   const resolvedParams = await params;
   const { chatId } = resolvedParams;
@@ -85,6 +97,12 @@ const Page = async ({ params }: { params: Params }) => {
             <span className="text-sm text-gray-600">{chatPartner.email}</span>
           </div>
         </div>
+        {/* Add Remove Friend Button */}
+        <button
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Remove Friend
+        </button>
       </div>
       <Messages
         sessionId={session.user.id}

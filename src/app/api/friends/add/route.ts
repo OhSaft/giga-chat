@@ -17,6 +17,12 @@ export async function POST(req: Request) {
 
     const { email: emailToAdd } = addFriendValidator.parse(body.email);
 
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
     const idToAdd = await fetchRedis(
       "get",
       `user:email:${emailToAdd}` as string
@@ -24,12 +30,6 @@ export async function POST(req: Request) {
 
     if (!idToAdd) {
       return new Response("This person does not exist.", { status: 400 });
-    }
-
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-      return new Response("Unauthorized", { status: 401 });
     }
 
     if (idToAdd === session.user.id) {
