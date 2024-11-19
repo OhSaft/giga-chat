@@ -7,12 +7,17 @@ import Image from "next/image";
 
 interface GroupHeaderProps {
   group: Group;
-  groupUsers: User[]; 
+  groupUsers: User[];
   groupId: string;
   userId: string;
 }
 
-const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId, userId }) => {
+const GroupHeader: FC<GroupHeaderProps> = ({
+  group,
+  groupUsers,
+  groupId,
+  userId,
+}) => {
   const [showMembers, setShowMembers] = useState(false);
 
   return (
@@ -50,26 +55,33 @@ const GroupHeader: FC<GroupHeaderProps> = ({ group, groupUsers, groupId, userId 
         <div className="border-b-2 border-gray-200 p-4">
           <h3 className="font-semibold mb-3">Group Members</h3>
           <div className="space-y-3">
-            {groupUsers.map((user) => (
-              <div key={user.id} className="flex items-center justify-between">
+            {groupUsers.map((groupUser) => (
+              <div key={groupUser.id} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Image
-                    src={user.image || "/placeholder-avatar.jpg"}
-                    alt={`${user.name}'s avatar`}
+                    src={groupUser.image || "/placeholder-avatar.jpg"}
+                    alt={`${groupUser.name}'s avatar`}
                     width={32}
                     height={32}
                     className="rounded-full"
                   />
-                  <span>{user.name}</span>
+                  <span>{groupUser.name}</span>
                 </div>
-                {userId === group.creatorId && user.id !== group.creatorId && (
-                  <Link
-                    href={`/group/${groupId}/removeMembers?userId=${user.id}`}
-                  >
-                    <button className="p-2 hover:bg-gray-100 rounded-md text-red-600">
-                      <UserMinus className="h-4 w-4" />
-                    </button>
-                  </Link>
+                {groupUser.id === group.creatorId ? (
+                  <span className="ml-2 text-xs text-gray-700 italic">
+                    Group owner
+                  </span>
+                ) : (
+                  userId === group.creatorId &&
+                  groupUser.id !== group.creatorId && (
+                    <Link
+                      href={`/group/${groupId}/removeMembers?userId=${groupUser.id}`}
+                    >
+                      <button className="p-2 hover:bg-gray-100 rounded-md text-red-600">
+                        <UserMinus className="h-4 w-4" />
+                      </button>
+                    </Link>
+                  )
                 )}
               </div>
             ))}
