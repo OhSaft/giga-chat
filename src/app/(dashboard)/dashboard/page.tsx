@@ -24,7 +24,14 @@ const page = async ({}) => {
         -1,
         -1
       )) as string[];
-      const lastMessage = JSON.parse(lastMessageRaw) as Message;
+      let lastMessage; // Replace `data` with the type of the variable you're parsing
+      try {
+        lastMessage = JSON.parse(lastMessageRaw) as Message // Replace `data` with the variable you're parsing
+      } catch (error) {
+        console.error("Failed to parse JSON:", error, lastMessageRaw);
+        lastMessage = null; // or provide a default fallback
+      }
+
       return { ...friend, lastMessage };
     })
   );
@@ -66,11 +73,11 @@ const page = async ({}) => {
                 <h4 className="text-lg font-semibold">{friend.name}</h4>
                 <p className="mt-1 max-w-md">
                   <span className="text-zinc-400">
-                    {friend.lastMessage.senderId === session.user.id
+                    {friend.lastMessage && friend.lastMessage.senderId === session.user.id
                       ? "You: "
                       : ""}
                   </span>
-                  {friend.lastMessage.text}
+                  {friend.lastMessage &&friend.lastMessage.text}
                 </p>
               </div>
             </Link>
