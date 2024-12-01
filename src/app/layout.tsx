@@ -82,14 +82,6 @@ export const metadata: Metadata = {
     images: ["/twitter-image.png"],
   },
   
-  // Viewport settings
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-  
   // Verification for search engines and services
   verification: {
     other: {
@@ -125,12 +117,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
-  // Theme color for browser UI
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" }
-  ],
 };
 
 export default function RootLayout({

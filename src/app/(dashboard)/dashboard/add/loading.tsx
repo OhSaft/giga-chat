@@ -2,14 +2,18 @@ import { FC } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-
 const loading: FC = () => {
   return (
-    <div className="w-full flex flex-col gap-3">
-      <Skeleton className="mb-4" height={60} width={500} />
-      <Skeleton height={20} width={150} />
-      <Skeleton height={50} width={400} />
-    </div>
+    <main className="pt-8">
+      <div className="w-48 bg-gray-300 animate-pulse h-8 mb-8 rounded"></div>
+      <div className="max-w-sm">
+        <div className="w-56 bg-gray-300 animate-pulse h-6 rounded mb-4"></div>
+        <div className="mt-2 flex gap-4">
+          <div className="w-full bg-gray-300 animate-pulse h-10 rounded-md"></div>
+          <div className="w-20 bg-gray-300 animate-pulse h-10 rounded"></div>
+        </div>
+      </div>
+    </main>
   );
 };
 

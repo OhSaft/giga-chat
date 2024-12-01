@@ -1,3 +1,4 @@
+import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
@@ -5,36 +6,36 @@ import { toPusherKey } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
-// Validator for removing a member
-const removeMemberValidator = z.object({
-  groupId: z.string().nonempty("Group ID is required"),
-  memberId: z.string().nonempty("Member ID is required"),
-});
-
-export async function POST(req: Request) {
+export async function DELETE(req: Request) {
   try {
     const body = await req.json();
+    const { groupId, memberId } = body;
 
-    // Validate the request body
-    const { groupId, memberId } = removeMemberValidator.parse(body);
-
+    // Get session
     const session = await getServerSession(authOptions);
-
     if (!session) {
       return new Response("Unauthorized", { status: 401 });
     }
 
     const userId = session.user.id;
 
-    // Check if the group exists
-    const group = await db.hgetall(`group:${groupId}`);
+    const groupExists = await db.sismember("groups" , groupId);
+    if (!groupExists) {
+      return new Response("Group not found", { status: 404 });
+    }
+    
+    // Now, fetch the detailed group information (e.g., creatorId, name, etc.)
+    const groupRaw = (await fetchRedis("get", `group:${groupId}`)) as string;
+    const group = JSON.parse(groupRaw) as Group;
+
     if (!group || Object.keys(group).length === 0) {
       return new Response("Group not found", { status: 404 });
     }
 
+    console.log("Group:", group); // Debugging group information
+
     // Check if the user is the group creator
     const isCreator = group.creatorId === userId;
-
     if (!isCreator) {
       return new Response(
         "Only the group creator can remove members from the group",
@@ -47,7 +48,6 @@ export async function POST(req: Request) {
       `group:${groupId}:members`,
       memberId
     );
-
     if (!isTargetMember) {
       return new Response("The specified member is not part of this group", {
         status: 404,
@@ -65,7 +65,8 @@ export async function POST(req: Request) {
     await db.srem(`group:${groupId}:members`, memberId);
     await db.srem(`user:${memberId}:groups`, groupId);
 
-    // Notify group members of the removal via Pusher (optional)
+    // Notify group members of the removal via Pusher
+    console.log("Triggering Pusher notification...");
     await pusherServer.trigger(
       toPusherKey(`group:${groupId}:members`),
       "member_removed",

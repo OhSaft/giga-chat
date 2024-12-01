@@ -3,7 +3,7 @@ import { z } from "zod";
 export const messageSchema = z.object({
   id: z.string(),
   senderId: z.string(),
-  text: z.string().max(2000), // max length of 2000 characters
+  text: z.string().max(500), // 500 characters max
   timestamp: z.number(),
 });
 
