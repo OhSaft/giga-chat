@@ -3,17 +3,19 @@
 import { FC, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "./ui/Button";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 interface GroupInputProps {
-    groupId: string; // Group chat ID
+  groupId: string; // Group chat ID
 }
 
 const GroupInput: FC<GroupInputProps> = ({ groupId }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
+
+  const maxCharacters = 500;
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -23,12 +25,18 @@ const GroupInput: FC<GroupInputProps> = ({ groupId }) => {
       await axios.post("/api/message/sendGroup", { text: input, groupId });
       setInput("");
       textareaRef.current?.focus();
-    } catch {
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error("Message is too long\n(max 500 characters)");
+        return;
+      }
       toast.error("Failed to send message");
     } finally {
       setIsLoading(false);
     }
   };
+
+  const currentLetterCount = input.length;
 
   return (
     <div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
@@ -57,7 +65,10 @@ const GroupInput: FC<GroupInputProps> = ({ groupId }) => {
             <div className="h-9" />
           </div>
         </div>
-        <div className="absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+        <div className="absolute right-0 bottom-0 flex items-center justify-between py-2 pl-3 pr-2">
+          <div className="flex text-gray-500 text-sm mr-2">
+            {currentLetterCount} / {maxCharacters}
+          </div>
           <div className="flex-shrink-0">
             <Button isLoading={isLoading} onClick={sendMessage} type="submit">
               Post

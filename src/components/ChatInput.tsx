@@ -29,7 +29,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
       textareaRef.current?.focus();
     } catch (error) {
       if (error instanceof z.ZodError) {
-        toast.error("Failed to send message111");
+        toast.error("Failed to send message");
         return;
       }
       if (error instanceof AxiosError) {
