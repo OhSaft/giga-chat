@@ -1,5 +1,6 @@
 "use client";
 
+import { UserMinus } from "lucide-react";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -56,7 +57,7 @@ const RemoveGroupMemberButton: FC<RemoveGroupMemberButtonProps> = ({
         onClick={() => setIsModalOpen(true)} // Open the modal on button click
         className="p-2 hover:bg-gray-100 rounded-md text-red-600"
       >
-        Remove Member
+        <UserMinus className="h-4 w-4" />
       </button>
 
       {/* Confirmation Modal */}
