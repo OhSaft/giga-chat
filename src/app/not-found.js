@@ -25,7 +25,7 @@ export default function Custom404() {
 
           {/* 404 Message */}
           <h2 className="text-2xl font-bold text-gray-800">404 - Page Not Found</h2>
-          <p className="text-sm text-gray-500 mt-4">Oops! Looks like the page you're looking for doesn't exist.</p>
+          <p className="text-sm text-gray-500 mt-4">Oops! Looks like the page you are looking for does not exist.</p>
 
           <div className="mt-8 flex justify-center">
             <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-800">
